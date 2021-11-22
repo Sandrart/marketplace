@@ -53,9 +53,9 @@ public class UsuarioController {
 	
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> userLogin(@RequestBody UsuarioDto dto){
+	public ResponseEntity<Boolean> userLogin(@RequestBody UsuarioDto dto){
 		
-		
+		return new ResponseEntity<Boolean>(service.checkUser(dto), HttpStatus.OK);
 	}
 }
 

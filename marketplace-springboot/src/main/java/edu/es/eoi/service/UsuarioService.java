@@ -51,5 +51,14 @@ public class UsuarioService {
 		repo.save(usuario);
 	}
 	
-
+	public boolean checkUser(UsuarioDto dto) {
+		
+		List<Usuario> result = repo.findByNombreAndPassword(dto.getNombre(), dto.getPassword());
+		
+		if(result != null && result.size() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
