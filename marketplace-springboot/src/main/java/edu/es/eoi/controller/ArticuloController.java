@@ -56,7 +56,7 @@ public class ArticuloController {
 
 	}
 	
-	@GetMapping("/{nombreParcial}")
+	@GetMapping("/nombre/{nombreParcial}")
 	public ResponseEntity<List<ArticuloDto>> getByNombre(@PathVariable String nombreParcial) {
 
 		return new ResponseEntity<List<ArticuloDto>>(serviceArticulo.findByNombre(nombreParcial), HttpStatus.OK);

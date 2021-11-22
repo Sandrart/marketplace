@@ -2,6 +2,7 @@ package edu.es.eoi.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class PedidoServiceImpl {
 
 	}
 
-	public PedidoDto find(Integer id) {
-
+	public PedidoDto find(Integer id) throws NoSuchElementException {		
+		
 		Pedido pedido = repoPedido.findById(id).get();
 
 		PedidoDto dto = new PedidoDto();

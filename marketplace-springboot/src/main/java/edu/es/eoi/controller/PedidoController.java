@@ -1,6 +1,7 @@
 package edu.es.eoi.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,12 +53,19 @@ public class PedidoController {
 	
 	@GetMapping("/{id}")	
 	public ResponseEntity<PedidoDto> getOne(@PathVariable Integer id) {
-
-		return new ResponseEntity<PedidoDto>(servicePedido.find(id), HttpStatus.OK);
+		PedidoDto dto = null;
+		try {
+			dto = servicePedido.find(id);
+			
+		} catch (NoSuchElementException e) {
+			
+			return new ResponseEntity<PedidoDto>(dto, HttpStatus.OK);
+		}
+		return new ResponseEntity<PedidoDto>(dto, HttpStatus.OK);
 		
 	}	
 	
-	@GetMapping("/{nombreParcial}")
+	@GetMapping("/nombre/{nombreParcial}")
 	public ResponseEntity<List<PedidoDto>> getByNombre(@PathVariable String nombreParcial) {
 
 		return new ResponseEntity<List<PedidoDto>>(servicePedido.findByNombre(nombreParcial), HttpStatus.OK);
