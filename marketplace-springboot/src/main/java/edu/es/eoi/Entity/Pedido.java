@@ -10,9 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import lombok.Getter;
 import lombok.Setter;
+
 
 @Entity
 @Getter
@@ -36,6 +36,7 @@ public class Pedido {
 	
 	@ManyToOne(targetEntity = Usuario.class,cascade = CascadeType.ALL)
 	private Usuario usuario;
+	
 	
 	
 	

@@ -8,6 +8,8 @@ import lombok.Setter;
 public class UsuarioDto {
 
 	
+	
+	
 	private int id;
 	
 	

@@ -9,6 +9,7 @@ import lombok.Setter;
 public class ArticuloDto {
 
 	
+	
     private int id;
 	
 	private String nombre;

@@ -1,7 +1,6 @@
 package edu.es.eoi.Entity;
 
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,5 +34,6 @@ public class Articulo {
 		
 	@OneToMany(targetEntity = Pedido_Articulo.class, cascade = CascadeType.ALL)
 	private List<Pedido_Articulo> pedido_Articulo;	
-		
+
+	
 }
