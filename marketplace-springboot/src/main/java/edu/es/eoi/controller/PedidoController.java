@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import edu.es.eoi.dto.PedidoDto;
 import edu.es.eoi.service.PedidoServiceImpl;
 
+@RestController
+@RequestMapping(value = "/pedido")
 public class PedidoController {
 	
 	@Autowired

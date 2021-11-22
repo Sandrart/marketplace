@@ -57,13 +57,9 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<String> validate(@RequestBody UsuarioDto dto) {
+	public ResponseEntity<Boolean> validate(@RequestBody UsuarioDto dto) {
 
-		if (serviceUsuario.findAll().contains(dto)) {
-			return new ResponseEntity<>("True", HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>("False",HttpStatus.OK);
-		}
+		return new ResponseEntity<Boolean>(serviceUsuario.validateUser(dto), HttpStatus.CREATED);
 
 	}
 }

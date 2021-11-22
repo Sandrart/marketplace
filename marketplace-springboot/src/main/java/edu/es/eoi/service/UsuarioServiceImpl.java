@@ -56,4 +56,15 @@ public class UsuarioServiceImpl {
 		return dto;
 	}
 
+	public boolean validateUser(UsuarioDto dto) {
+		List<Usuario> usuariosEncontrados = repoUsuario.findByNombreAndPassword(dto.getNombre(), dto.getPassword());
+		
+		if(usuariosEncontrados!= null && usuariosEncontrados.size()>0) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+
 }
