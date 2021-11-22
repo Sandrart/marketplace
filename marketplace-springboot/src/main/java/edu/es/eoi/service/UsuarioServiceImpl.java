@@ -16,35 +16,44 @@ public class UsuarioServiceImpl {
 
 	@Autowired
 	UsuarioRepository repo;
-	
-	public List<UsuarioDto> findAll(){
-		
+
+	public UsuarioDto find(Integer id) {
+
+		Usuario u = repo.findById(id).get();
+
+		UsuarioDto dto = new UsuarioDto();
+
+		BeanUtils.copyProperties(u , dto);
+
+		return dto;
+	}
+
+	public List<UsuarioDto> findAll() {
+
 		List<Usuario> usuarios = repo.findAll();
 		List<UsuarioDto> lista = new ArrayList<UsuarioDto>();
-		
+
 		for (Usuario usuario : usuarios) {
 			UsuarioDto dto = new UsuarioDto();
 			BeanUtils.copyProperties(usuario, dto);
-			
+
 			lista.add(dto);
 		}
-		
+
 		return lista;
 	}
-	
+
 	public void save(UsuarioDto dto) {
-		
+
 		Usuario entity = new Usuario();
 		BeanUtils.copyProperties(dto, entity);
 
 		repo.save(entity);
 	}
-	
-	public boolean comprobarLogin(UsuarioDto usuariodto) {
-		
-	
-		return false ;	
+
+	public boolean comprobarLogin(UsuarioDto dto) {
+
+		return false;
 	}
-	
-	
+
 }

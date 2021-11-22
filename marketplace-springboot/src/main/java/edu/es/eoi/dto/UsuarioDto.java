@@ -1,6 +1,5 @@
 package edu.es.eoi.dto;
 
-import edu.es.eoi.entity.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +11,6 @@ public class UsuarioDto {
 	
 	private String nombre;
 	
-	private Usuario password;
+	private String password;
 	
 }
