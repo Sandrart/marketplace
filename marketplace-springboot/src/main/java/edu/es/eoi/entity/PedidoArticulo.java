@@ -12,11 +12,17 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Pedido_Articulo {
+public class PedidoArticulo {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
+	@Column
+	private int id_pedido;
+	
+	@Column
+	private int id_articulo;
 	
 	@Column(name="cantidad")
 	private int cantidad;
