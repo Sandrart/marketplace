@@ -5,11 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "pedidoarticulo")
 @Getter
 @Setter
 public class PedidoArticulo {
@@ -19,10 +21,10 @@ public class PedidoArticulo {
 	private int id;
 	
 	@Column
-	private int id_pedido;
+	private int idPedido;
 	
 	@Column
-	private int id_articulo;
+	private int idArticulo;
 	
 	@Column(name="cantidad")
 	private int cantidad;

@@ -19,8 +19,7 @@ import lombok.Setter;
 public class Usuario {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	
+	@GeneratedValue(strategy=GenerationType.AUTO)	
 	private int id;
 	
 	@Column
@@ -29,6 +28,6 @@ public class Usuario {
 	@Column
 	private String password;
 	
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(targetEntity = Pedido.class,fetch=FetchType.LAZY)
 	private List<Pedido> pedidos;
 }

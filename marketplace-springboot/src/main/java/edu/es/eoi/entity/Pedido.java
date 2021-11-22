@@ -34,15 +34,13 @@ public class Pedido {
 	@Column
 	private String nombre;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id", referencedColumnName="id")
+	@ManyToOne(targetEntity = Usuario.class,fetch=FetchType.LAZY)	
 	private Usuario usuario;
 	
 	@ManyToMany
-	@JoinTable(name="PedidoArticulo", joinColumns = @JoinColumn(name="id_pedido"),
-	inverseJoinColumns = @JoinColumn(name="id_articulo")
-			)
-	Set<Articulo> articulos;
+	@JoinTable(name="pedidoarticulo", joinColumns = @JoinColumn(name="idPedido"),
+	inverseJoinColumns = @JoinColumn(name="idArticulo"))
+	private Set<Articulo> articulos;
 	
 	
 	

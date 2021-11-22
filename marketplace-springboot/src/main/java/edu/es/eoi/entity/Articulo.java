@@ -1,6 +1,6 @@
 package edu.es.eoi.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +31,6 @@ public class Articulo {
 	@Column
 	private int stock;
 	
-	@OneToMany(targetEntity=Pedido.class,cascade=CascadeType.ALL)
-	private List<Pedido> pedidos;
+	@ManyToMany(targetEntity=Pedido.class,cascade=CascadeType.ALL)
+	private Set<Pedido> pedidos;
 }	
