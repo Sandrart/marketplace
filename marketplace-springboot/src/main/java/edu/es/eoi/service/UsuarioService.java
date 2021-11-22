@@ -17,6 +17,16 @@ public class UsuarioService {
 	@Autowired
 	UsuarioRepository repo;
 	
+	public UsuarioDto find(Integer id) {
+		
+		Usuario usuario = repo.findById(id).get();
+		UsuarioDto dto = new UsuarioDto();
+		
+		BeanUtils.copyProperties(usuario, dto);
+		
+		return dto;
+	}
+	
 	public List<UsuarioDto> findAll() {
 		
 		List<Usuario> usuarios = repo.findAll();
@@ -40,4 +50,6 @@ public class UsuarioService {
 		
 		repo.save(usuario);
 	}
+	
+
 }
