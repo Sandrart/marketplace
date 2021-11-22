@@ -1,4 +1,4 @@
-package edu.es.eoi.marketplacespringboot;
+package edu.es.eoi;
 
 
 import org.springframework.boot.SpringApplication;

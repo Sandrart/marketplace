@@ -14,6 +14,9 @@ import lombok.Setter;
 @Setter
 public class Pedido_Articulo {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
 	
 	@Column(name="cantidad")
 	private int cantidad;
