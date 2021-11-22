@@ -1,6 +1,7 @@
 package edu.es.eoi.entity;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +26,8 @@ public class PedidoArticulos {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private int cantidad;
+	@Column(nullable = false)
+	private Integer cantidad;
 	
 	@ManyToOne(targetEntity = Articulo.class, cascade = CascadeType.ALL)
 	private Articulo articulo;
