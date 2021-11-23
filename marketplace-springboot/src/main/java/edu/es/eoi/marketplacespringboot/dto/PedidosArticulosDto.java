@@ -17,5 +17,4 @@ public class PedidosArticulosDto {
 	private int cantidad;	
 	private ArticuloDto articulo;
 	private PedidoDto pedido;
-	
 }
