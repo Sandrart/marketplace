@@ -27,7 +27,7 @@ public class PedidosArticulos {
 	private int id;
 	private int cantidad;
 	
-	@ManyToOne(targetEntity =Articulo.class, fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity =Articulo.class, fetch = FetchType.LAZY)
 	private Articulo articulo;
 	
 	@ManyToOne(targetEntity = Pedido.class,fetch = FetchType.LAZY, cascade = CascadeType.ALL)

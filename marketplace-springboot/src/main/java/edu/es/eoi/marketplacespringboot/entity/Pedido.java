@@ -35,7 +35,7 @@ public class Pedido {
 	
 	private Date fecha;
 	
-	@ManyToOne(targetEntity = Usuario.class,fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = Usuario.class,fetch = FetchType.LAZY)
 	private Usuario usuario;
 	
 	@OneToMany(targetEntity = PedidosArticulos.class,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
