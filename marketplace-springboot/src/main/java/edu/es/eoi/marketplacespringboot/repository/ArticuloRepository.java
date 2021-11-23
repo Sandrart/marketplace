@@ -9,5 +9,6 @@ import edu.es.eoi.marketplacespringboot.entity.Articulo;
 
 @Repository
 public interface ArticuloRepository extends JpaRepository<Articulo, Integer>{
-	List<Articulo> findByNombre(String nombre);
+	public List<Articulo> findByNombre(String nombre);
+	public List<Articulo> findByNombreContaining(String nombre);
 }

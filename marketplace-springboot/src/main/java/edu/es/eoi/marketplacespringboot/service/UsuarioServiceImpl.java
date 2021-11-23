@@ -53,6 +53,12 @@ public class UsuarioServiceImpl {
 		}
 	}
 
+	public UsuarioDto usuarioDto(Usuario usuario) {
+		UsuarioDto dto = new UsuarioDto();
+		BeanUtils.copyProperties(usuario, dto);
+		return dto;
+		
+	}
 
 
 	public List<UsuarioDto> findAll() {
