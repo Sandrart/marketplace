@@ -1,11 +1,11 @@
 package edu.es.eoi.marketplacespringboot.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -21,17 +21,16 @@ import lombok.Setter;
 @Table
 @Entity
 public class PedidosArticulos {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int cantidad;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idArticulo", referencedColumnName = "id")
+	@ManyToOne(targetEntity =Articulo.class, fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Articulo articulo;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idPedido", referencedColumnName = "id")
+	@ManyToOne(targetEntity = Pedido.class,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Pedido pedido;
 	
 }

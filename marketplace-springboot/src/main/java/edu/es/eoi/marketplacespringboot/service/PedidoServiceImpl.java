@@ -4,21 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.persistence.Entity;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mapping.context.PersistentEntities;
 import org.springframework.stereotype.Service;
 
 import edu.es.eoi.marketplacespringboot.dto.ArticuloDto;
+import edu.es.eoi.marketplacespringboot.dto.PedidoArticulosDto;
 import edu.es.eoi.marketplacespringboot.dto.PedidoDto;
 import edu.es.eoi.marketplacespringboot.entity.Articulo;
 import edu.es.eoi.marketplacespringboot.entity.Pedido;
 import edu.es.eoi.marketplacespringboot.entity.PedidosArticulos;
+import edu.es.eoi.marketplacespringboot.entity.Usuario;
 import edu.es.eoi.marketplacespringboot.repository.ArticuloRepository;
 import edu.es.eoi.marketplacespringboot.repository.PedidoRepository;
-import edu.es.eoi.marketplacespringboot.repository.PedidosArticulosRepository;
 import edu.es.eoi.marketplacespringboot.repository.UsuarioRepository;
 
 @Service
@@ -26,15 +24,58 @@ public class PedidoServiceImpl {
 	@Autowired
 	PedidoRepository repoPedido;
 	
+	@Autowired
+	ArticuloRepository articuloRepository;
 	
-
-	public void save(PedidoDto dto) {
+	@Autowired
+	UsuarioRepository usuarioRepository;
+	
+	public void save(PedidoDto dto, int usuario) {
 
 		Pedido pedido = new Pedido();
-		BeanUtils.copyProperties(dto, pedido);
-
+		pedido.setNombre(dto.getNombre());
+		pedido.setFecha(dto.getFecha());
+		
+		findUsuario(usuario, pedido);		
+		
+		List<PedidosArticulos> lista = mapeoPedidoArticulosDto(dto, pedido);
+		
+		pedido.setPedidosArticulos(lista);
+		
 		repoPedido.save(pedido);
 
+	}
+
+	private List<PedidosArticulos> mapeoPedidoArticulosDto(PedidoDto dto, Pedido pedido) {
+		List<PedidoArticulosDto> articulos=dto.getArticulos();
+		List<PedidosArticulos> lista=new ArrayList<PedidosArticulos>();
+		
+		for (PedidoArticulosDto pedidoArticulosDto : articulos) {			
+			
+			Articulo articulo = articuloRepository.findById(pedidoArticulosDto.getId()).get();
+			
+			PedidosArticulos p=new PedidosArticulos();
+			p.setArticulo(articulo);
+			p.setPedido(pedido);
+			p.setCantidad(pedidoArticulosDto.getCantidad());
+			
+			if(articulo.getPedidosArticulos()!=null) {
+				articulo.getPedidosArticulos().add(p);
+			}else{
+				articulo.setPedidosArticulos(new ArrayList<PedidosArticulos>());
+				articulo.getPedidosArticulos().add(p);
+			}				
+			
+			lista.add(p);
+		}
+		return lista;
+	}
+
+	private void findUsuario(int usuario, Pedido pedido) {
+		
+		Usuario user=usuarioRepository.findById(usuario).get();
+		pedido.setUsuario(user);
+		user.getPedidos().add(pedido);
 	}
 
 	public void delete(Integer id) {
@@ -58,6 +99,7 @@ public class PedidoServiceImpl {
 
 		List<Pedido> pedidos = repoPedido.findByNombreContaining(nombre);
 
+		
 		List<PedidoDto> lista = new ArrayList<PedidoDto>();
 
 		for (Pedido pedido : pedidos) {
@@ -76,7 +118,7 @@ public class PedidoServiceImpl {
 				listaArticulos.add(dtoTemp);
 			}
 			
-			List<Articulo> articulos =  new ArrayList<Articulo>();
+			List<PedidoArticulosDto> articulos =  new ArrayList<PedidoArticulosDto>();
 			
 			BeanUtils.copyProperties(listaArticulos, articulos);
 			

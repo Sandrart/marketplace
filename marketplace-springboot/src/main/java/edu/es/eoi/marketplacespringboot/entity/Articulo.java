@@ -23,9 +23,11 @@ import lombok.Setter;
 @Table
 @Entity
 public class Articulo {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String nombre;
 	private double precio;
 	private int stock;

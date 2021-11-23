@@ -23,11 +23,11 @@ import edu.es.eoi.marketplacespringboot.service.PedidoServiceImpl;
 public class PedidoController {
 	@Autowired
 	PedidoServiceImpl servicePedido;
-
+		
 	@PostMapping
 	public ResponseEntity<String> createOne(@RequestBody PedidoDto dto) {
 		
-		servicePedido.save(dto);
+		servicePedido.save(dto, 1);
 		
 		return new ResponseEntity<String>(HttpStatus.CREATED);
 		
@@ -38,7 +38,7 @@ public class PedidoController {
 		
 		if(id.equals(dto.getId())&&servicePedido.find(id)!=null) {
 			
-			servicePedido.save(dto);
+			servicePedido.save(dto,1);
 			
 			return new ResponseEntity<String>(HttpStatus.ACCEPTED);
 			
