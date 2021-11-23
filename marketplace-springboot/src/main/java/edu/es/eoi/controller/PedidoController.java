@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,30 +14,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.es.eoi.dto.ArticuloDto;
-import edu.es.eoi.service.ArticuloService;
+import edu.es.eoi.dto.PedidoDto;
+import edu.es.eoi.service.PedidoService;
 
 @RestController
-@RequestMapping(value = "/articulo")
-public class ArticuloController {
+@RequestMapping(value = "/pedido")
+public class PedidoController {
 
 	@Autowired
-	ArticuloService service;
+	PedidoService service;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ArticuloDto> getOne(@PathVariable Integer id){
+	public ResponseEntity<PedidoDto> getOne(@PathVariable Integer id){
 		
-		return new ResponseEntity<ArticuloDto>(service.find(id), HttpStatus.OK);
+		return new ResponseEntity<PedidoDto>(service.find(id), HttpStatus.OK);
 	}
 	
 	@GetMapping("/nombre/{str}")
-	public ResponseEntity<List<ArticuloDto>> getByName(@PathVariable String str){
+	public ResponseEntity<List<PedidoDto>> getByName(@PathVariable String str){
 		
-		return new ResponseEntity<List<ArticuloDto>>(service.findByName(str), HttpStatus.OK);
+		return new ResponseEntity<List<PedidoDto>>(service.findByName(str), HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> save(@RequestBody ArticuloDto dto){
+	public ResponseEntity<String> save(@RequestBody PedidoDto dto){
 		
 		service.save(dto);
 		
@@ -44,7 +45,7 @@ public class ArticuloController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<String> update(@RequestBody ArticuloDto dto, @PathVariable Integer id){
+	public ResponseEntity<String> update(@RequestBody PedidoDto dto, @PathVariable Integer id){
 		
 		if(id.equals(dto.getId()) && service.find(id) != null) {
 			
@@ -56,10 +57,15 @@ public class ArticuloController {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> deleteOne(@PathVariable Integer id){
+		
+		service.delete(id);
+		
+		return new ResponseEntity<String>(HttpStatus.ACCEPTED);
+	}
 }
-
-
-
 
 
 

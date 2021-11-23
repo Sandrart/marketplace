@@ -34,7 +34,7 @@ public class UsuarioController {
 		
 		service.save(dto);
 		
-		return new ResponseEntity<String>(HttpStatus.ACCEPTED);
+		return new ResponseEntity<String>(HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")

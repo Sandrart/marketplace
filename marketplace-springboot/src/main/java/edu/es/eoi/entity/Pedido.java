@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +37,7 @@ public class Pedido {
 	@Column(nullable = false)
 	private String nombre;
 	
-	@ManyToOne(targetEntity = Usuario.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = Usuario.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Usuario usuario;
 	
 	@OneToMany(targetEntity = PedidoArticulos.class, cascade = CascadeType.ALL)

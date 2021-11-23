@@ -3,6 +3,7 @@ package edu.es.eoi.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,9 +30,9 @@ public class PedidoArticulos {
 	@Column(nullable = false)
 	private Integer cantidad;
 	
-	@ManyToOne(targetEntity = Articulo.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = Articulo.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Articulo articulo;
 	
-	@ManyToOne(targetEntity = Pedido.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = Pedido.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Pedido pedido;
 }
