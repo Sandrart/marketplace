@@ -22,7 +22,7 @@ public class UsuarioController {
 	
 	@Autowired
 	UsuarioServiceImpl service;
-	//FALTA COMPROBAR LOGIN USUARIO
+	
 	
 	//Obtener los usuarios
 	@GetMapping
@@ -40,6 +40,11 @@ public class UsuarioController {
 		return new ResponseEntity<String>(HttpStatus.CREATED);
 	}
 	
+	@PostMapping("/login")
+	public ResponseEntity<Boolean> login(@RequestBody UsuarioDto dto){
+		return new ResponseEntity<Boolean>(service.existUser(dto), HttpStatus.OK); 
+	}
+	
 	//Actualizar usuario
 	@SuppressWarnings("unlikely-arg-type")
 	@PutMapping("/{id}")
@@ -52,6 +57,16 @@ public class UsuarioController {
 			return new ResponseEntity<String>(HttpStatus.ACCEPTED);
 		}else {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+	
+	@GetMapping("/{id}")	
+	public ResponseEntity<UsuarioDto> getOne(@PathVariable Integer id) {
+		try {
+			return new ResponseEntity<UsuarioDto>(service.findById(id), HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<UsuarioDto>(HttpStatus.NOT_FOUND);
 		}
 		
 	}

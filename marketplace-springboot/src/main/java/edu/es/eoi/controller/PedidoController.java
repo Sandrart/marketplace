@@ -1,5 +1,7 @@
 package edu.es.eoi.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,8 +58,14 @@ public class PedidoController {
 		
 	}
 	
-	//Falta el servicio para obtener los pedidos que contengan su atributo nombre, nombre parcial
 	
+	
+	@GetMapping("/nombre/{nombreParcial}")
+	public ResponseEntity<List<PedidoDto>> getByNombre(@PathVariable String nombreParcial) {
+
+		return new ResponseEntity<List<PedidoDto>>(service.findByNombre(nombreParcial), HttpStatus.OK);
+
+	}
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteOne(@PathVariable Integer id){
 		

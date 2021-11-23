@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import edu.es.eoi.dto.ArticuloDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +20,7 @@ import lombok.Setter;
 public class Articulo {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
 	@Column
@@ -33,4 +34,6 @@ public class Articulo {
 	
 	@ManyToMany(targetEntity=Pedido.class,cascade=CascadeType.ALL)
 	private Set<Pedido> pedidos;
+
+	
 }	

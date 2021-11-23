@@ -12,7 +12,7 @@ import edu.es.eoi.dto.PedidoArticuloDto;
 import edu.es.eoi.dto.PedidoDto;
 import edu.es.eoi.entity.Articulo;
 import edu.es.eoi.entity.Pedido;
-import edu.es.eoi.entity.PedidoArticulo;
+
 import edu.es.eoi.repository.ArticuloRepository;
 import edu.es.eoi.repository.PedidoRepository;
 
@@ -44,12 +44,12 @@ public class PedidoServiceImpl {
 		Pedido entidad = new Pedido();
 		entidad.setFecha(dto.getFecha());
 		entidad.setNombre(dto.getNombre());
-	
+
 		for (PedidoArticuloDto articulo : dto.getArticulos()) {
-			
-			Articulo a=articuloRepository.findById(articulo.getId()).get();			
-			a.getPedidos().add(entidad);			
-			entidad.getArticulos().add(a);			
+
+			Articulo a = articuloRepository.findById(articulo.getId()).get();
+			a.getPedidos().add(entidad);
+			entidad.getArticulos().add(a);
 		}
 
 		repo.save(entidad);
@@ -74,14 +74,26 @@ public class PedidoServiceImpl {
 			dto.setNombre(pedido.getNombre());
 			dto.setFecha(pedido.getFecha());
 
-			for (PedidoArticulo temp : pedido.getArticulos()) {
+			for (Articulo temp : pedido.getArticulos()) {
 
 				ArticuloDto dtoTemp = new ArticuloDto();
-				dtoTemp.setPrecio(temp.getIdArticulo().getPrecio());
-				dtoTemp.setNombre(temp.getIdArticulo().getNombre());
-				dtoTemp.setStock(temp.getIdArticulo().getStock());
+				dtoTemp.setPrecio(temp.getPrecio());
+				dtoTemp.setNombre(temp.getNombre());
+				dtoTemp.setStock(temp.getStock());
 				listaArticulos.add(dtoTemp);
 			}
+
+			List<PedidoArticuloDto> articulos = new ArrayList<PedidoArticuloDto>();
+
+			BeanUtils.copyProperties(listaArticulos, articulos);
+
+			dto.setArticulos(articulos);
+
+			lista.add(dto);
+
 		}
+		return lista;
+
 	}
+
 }

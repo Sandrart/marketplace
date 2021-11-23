@@ -1,5 +1,7 @@
 package edu.es.eoi.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,14 @@ public class ArticuloController {
 	@Autowired
 	ArticuloServiceImpl service;
 	
+	
+	@GetMapping	
+	public ResponseEntity<List<ArticuloDto>> getAll() {
+		
+		return new ResponseEntity<List<ArticuloDto>>(service.findAll(), HttpStatus.OK);
+		
+	}
+	
 	@PostMapping
 	public ResponseEntity<String> createOne(@RequestBody ArticuloDto dto){
 		
@@ -40,6 +50,13 @@ public class ArticuloController {
 			
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
+		
+	}
+	
+	@GetMapping("/nombre/{nombreParcial}")
+	public ResponseEntity<List<ArticuloDto>> getAllNombreParcial(@PathVariable String nombreParcial) {
+		
+		return new ResponseEntity<List<ArticuloDto>>(service.findAllNombreParcial(nombreParcial), HttpStatus.OK);
 		
 	}
 	

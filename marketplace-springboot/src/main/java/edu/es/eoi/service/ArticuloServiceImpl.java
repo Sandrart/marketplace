@@ -30,6 +30,15 @@ public class ArticuloServiceImpl {
 		return dto;
 	}
 	
+	public Boolean existeArticulo(ArticuloDto dto) {	
+		List<Articulo> result = repo.findByNombreContaining(dto.getNombre());
+		if(result != null && result.size() != 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	public List<ArticuloDto> findAll(){
 		
 		List<Articulo> articulos = repo.findAll();
@@ -65,5 +74,18 @@ public class ArticuloServiceImpl {
 	public void deleteAll() {
 		
 		repo.deleteAll();
+	}
+	
+	public List<ArticuloDto> findAllNombreParcial(String nombreParcial) {
+		List<Articulo> articulos = repo.findByNombreContaining(nombreParcial);
+		List<ArticuloDto> lista= new ArrayList<ArticuloDto>();
+		
+		for (Articulo articulo : articulos) {
+			ArticuloDto dto=new ArticuloDto();			
+			BeanUtils.copyProperties(articulo, dto);
+			lista.add(dto);
+		}
+		
+		return lista;
 	}
 }

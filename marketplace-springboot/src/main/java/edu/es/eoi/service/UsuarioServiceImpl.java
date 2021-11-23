@@ -44,6 +44,10 @@ public class UsuarioServiceImpl {
 		return lista;
 	}
 	
+	public Usuario findEntity(Integer id) {
+		return repo.findById(id).get();
+	}
+	
 	public void save(UsuarioDto dto) {
 		
 		Usuario entidad = new Usuario();
@@ -61,6 +65,22 @@ public class UsuarioServiceImpl {
 	public void DeleteAll() {
 		
 		repo.deleteAll();
+	}
+	
+	public UsuarioDto usuarioDto(Usuario usuario) {
+		UsuarioDto dto = new UsuarioDto();
+		BeanUtils.copyProperties(usuario, dto);
+		return dto;
+		
+	}
+	
+	public Boolean existUser(UsuarioDto dto) {	
+		List<Usuario> result = repo.findByNombreAndPassword(dto.getNombre(), dto.getPassword());
+		if(result != null && result.size() != 0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 }
