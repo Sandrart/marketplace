@@ -15,8 +15,6 @@ import edu.es.eoi.marketplacespringboot.repository.UsuarioRepository;
 public class UsuarioServiceImpl {
 	@Autowired
 	UsuarioRepository repoUsuario;
-
-	
 	
 	public void save(UsuarioDto dto) {
 		Usuario entity = new Usuario();
@@ -24,8 +22,6 @@ public class UsuarioServiceImpl {
 		repoUsuario.save(entity);
 		
 	}
-	
-	
 	
 	public Usuario findEntity(Integer id) {
 		return repoUsuario.findById(id).get();
@@ -38,6 +34,7 @@ public class UsuarioServiceImpl {
 		UsuarioDto dto=new UsuarioDto();
 		
 		BeanUtils.copyProperties(user, dto);
+		dto.setPassword("#######");
 		
 		return dto;
 	}
@@ -62,12 +59,12 @@ public class UsuarioServiceImpl {
 
 
 	public List<UsuarioDto> findAll() {
-		List<Usuario> usuarios = repoUsuario.findAll();
 		List<UsuarioDto> lista= new ArrayList<UsuarioDto>();
 		
-		for (Usuario user : usuarios) {
+		for (Usuario user : repoUsuario.findAll()) {
 			UsuarioDto dto=new UsuarioDto();			
 			BeanUtils.copyProperties(user, dto);
+			dto.setPassword("#######");
 			lista.add(dto);
 		}
 		
