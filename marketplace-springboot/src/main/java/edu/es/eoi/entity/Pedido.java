@@ -40,7 +40,7 @@ public class Pedido {
 	@ManyToOne(targetEntity = Usuario.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Usuario usuario;
 	
-	@OneToMany(targetEntity = PedidoArticulos.class, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = PedidoArticulos.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<PedidoArticulos> pedidoArticulos;
 }
 

@@ -3,14 +3,11 @@ package edu.es.eoi.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.es.eoi.dto.ArticuloDto;
 import edu.es.eoi.dto.ArticulosPedidoDto;
 import edu.es.eoi.dto.PedidoDto;
-import edu.es.eoi.entity.Articulo;
 import edu.es.eoi.entity.Pedido;
 import edu.es.eoi.entity.PedidoArticulos;
 import edu.es.eoi.repository.ArticuloRepository;
@@ -30,8 +27,23 @@ public class PedidoService {
 		Pedido pedido= repo.findById(id).get();
 		PedidoDto dto = new PedidoDto();
 
-		BeanUtils.copyProperties(pedido, dto);
-
+		dto.setFecha(pedido.getFecha());
+		dto.setNombre(pedido.getNombre());
+		dto.setId(pedido.getId());
+		
+		List<ArticulosPedidoDto> lista = new ArrayList<ArticulosPedidoDto>();
+		
+		for(PedidoArticulos pa: pedido.getPedidoArticulos()) {
+			
+			ArticulosPedidoDto temp = new ArticulosPedidoDto();
+			temp.setId(pa.getArticulo().getId());
+			temp.setCantidad(pa.getCantidad());
+			
+			lista.add(temp);
+		}
+		
+		dto.setArticulos(lista);
+		
 		return dto;
 	}
 	
@@ -41,28 +53,25 @@ public class PedidoService {
 		List<PedidoDto> lista = new ArrayList<PedidoDto>();
 		
 		for(Pedido pedido: pedidos) {
-			List<ArticulosPedidoDto> listaArticulos = new ArrayList<ArticulosPedidoDto>();
 			
 			PedidoDto dto = new PedidoDto();
-			dto.setNombre(pedido.getNombre());
+			
 			dto.setFecha(pedido.getFecha());
 			dto.setId(pedido.getId());
+			dto.setNombre(pedido.getNombre());
 			
-			for(PedidoArticulos temp: pedido.getPedidoArticulos()) {
+			List<ArticulosPedidoDto> listaArticulos = new ArrayList<ArticulosPedidoDto>();
+			
+			for(PedidoArticulos pa: pedido.getPedidoArticulos()) {
 				
-				ArticuloDto dtoArt = new ArticuloDto();
-				dtoArt.setPrecio(temp.getArticulo().getPrecio());
-				dtoArt.setNombre(temp.getArticulo().getNombre());
-				dtoArt.setStock(temp.getArticulo().getStock());
+				ArticulosPedidoDto temp = new ArticulosPedidoDto();
+				temp.setId(pa.getArticulo().getId());
+				temp.setCantidad(pa.getCantidad());
 				
-				listaArticulos.add(dtoArt);
+				listaArticulos.add(temp);
 			}
 			
-			List<Articulo> articulos = new ArrayList<Articulo>();
-			
-			BeanUtils.copyProperties(listaArticulos, articulos);
-			
-//			dto.setArticulos(articulos);
+			dto.setArticulos(listaArticulos);
 			
 			lista.add(dto);
 		}
