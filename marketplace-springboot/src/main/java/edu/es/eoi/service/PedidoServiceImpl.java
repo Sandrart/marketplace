@@ -12,7 +12,7 @@ import edu.es.eoi.dto.PedidoArticuloDto;
 import edu.es.eoi.dto.PedidoDto;
 import edu.es.eoi.entity.Articulo;
 import edu.es.eoi.entity.Pedido;
-
+import edu.es.eoi.entity.PedidoArticulo;
 import edu.es.eoi.repository.ArticuloRepository;
 import edu.es.eoi.repository.PedidoRepository;
 
@@ -61,39 +61,36 @@ public class PedidoServiceImpl {
 		repo.deleteById(id);
 	}
 
-	public List<PedidoDto> findByNombre(String nombre) {
-
-		List<Pedido> pedidos = repo.findByNombreContaining(nombre);
-
+public List<PedidoDto> findByName(String str){
+		
+		List<Pedido> pedidos = repo.findByNombreContaining(str);
 		List<PedidoDto> lista = new ArrayList<PedidoDto>();
-
-		for (Pedido pedido : pedidos) {
-			List<ArticuloDto> listaArticulos = new ArrayList<ArticuloDto>();
-
+		
+		for(Pedido pedido: pedidos) {
+			
 			PedidoDto dto = new PedidoDto();
-			dto.setNombre(pedido.getNombre());
+			
 			dto.setFecha(pedido.getFecha());
-
-			for (Articulo temp : pedido.getArticulos()) {
-
-				ArticuloDto dtoTemp = new ArticuloDto();
-				dtoTemp.setPrecio(temp.getPrecio());
-				dtoTemp.setNombre(temp.getNombre());
-				dtoTemp.setStock(temp.getStock());
-				listaArticulos.add(dtoTemp);
+			dto.setId(pedido.getId());
+			dto.setNombre(pedido.getNombre());
+			
+			List<PedidoArticuloDto> listaArticulos = new ArrayList<PedidoArticuloDto>();
+			
+			for(PedidoArticuloDto pa: dto.getArticulos()) {
+				
+				PedidoArticuloDto temp = new PedidoArticuloDto();
+				temp.setId(pa.getId());;
+				temp.setCantidad(pa.getCantidad());
+				
+				listaArticulos.add(temp);
 			}
-
-			List<PedidoArticuloDto> articulos = new ArrayList<PedidoArticuloDto>();
-
-			BeanUtils.copyProperties(listaArticulos, articulos);
-
-			dto.setArticulos(articulos);
-
+			
+			dto.setArticulos(listaArticulos);
+			
 			lista.add(dto);
-
 		}
+		
 		return lista;
-
 	}
 
 }

@@ -63,7 +63,7 @@ public class PedidoController {
 	@GetMapping("/nombre/{nombreParcial}")
 	public ResponseEntity<List<PedidoDto>> getByNombre(@PathVariable String nombreParcial) {
 
-		return new ResponseEntity<List<PedidoDto>>(service.findByNombre(nombreParcial), HttpStatus.OK);
+		return new ResponseEntity<List<PedidoDto>>(service.findByName(nombreParcial), HttpStatus.OK);
 
 	}
 	@DeleteMapping("/{id}")
