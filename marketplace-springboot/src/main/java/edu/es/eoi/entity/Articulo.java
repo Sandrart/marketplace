@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,10 +35,10 @@ public class Articulo {
 	private String nombre;
 
 	@Column(name = "PRECIO")
-	private Double precio;
+	private double precio;
 	
 	@Column(name = "STOCK")
-	private Integer stock;
+	private int stock;
 	
 	@OneToMany(targetEntity = Pertenece.class, cascade = CascadeType.ALL)
 	private List<Pertenece> pertenecen;

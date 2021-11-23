@@ -17,8 +17,6 @@ public class UsuarioServiceImpl {
 	@Autowired
 	UsuarioRepository repoUsuario;
 
-	
-	//Si no funciona bien hacer la copia de parametros a mano
 	public List<UsuarioDto> findAll() {
 
 		List<Usuario> usuarios = repoUsuario.findAll();
@@ -36,7 +34,7 @@ public class UsuarioServiceImpl {
 		return listaUsuarios;
 	}
 	
-	public void save(UsuarioDto dto) {
+	public void save(UsuarioDto dto){
 
 		Usuario usuario = new Usuario();
 		BeanUtils.copyProperties(dto, usuario);
@@ -45,7 +43,7 @@ public class UsuarioServiceImpl {
 
 	}
 	
-	public UsuarioDto find(Integer id) {
+	public UsuarioDto find(int id){
 
 		Usuario usuario = repoUsuario.findById(id).get();
 

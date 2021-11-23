@@ -17,7 +17,7 @@ import edu.es.eoi.dto.UsuarioDto;
 import edu.es.eoi.service.UsuarioServiceImpl;
 
 @RestController
-@RequestMapping(value = "/usuario")
+@RequestMapping(value = "marketplace/usuario")
 public class UsuarioController {
 
 	@Autowired

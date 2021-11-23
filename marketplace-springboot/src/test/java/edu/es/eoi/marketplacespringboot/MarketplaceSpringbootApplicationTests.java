@@ -17,7 +17,9 @@ import edu.es.eoi.dto.ArticuloDto;
 import edu.es.eoi.dto.ArticulosPedidosDto;
 import edu.es.eoi.dto.PedidoDto;
 import edu.es.eoi.dto.UsuarioDto;
+import edu.es.eoi.entity.Articulo;
 import edu.es.eoi.entity.Pedido;
+import edu.es.eoi.entity.Pertenece;
 import edu.es.eoi.entity.Usuario;
 import edu.es.eoi.service.ArticuloServiceImpl;
 import edu.es.eoi.service.PedidoServiceImpl;
@@ -44,14 +46,72 @@ class MarketplaceSpringbootApplicationTests {
 	@Autowired
 	UsuarioController controllerUsuario;
 	
+	// Prueba de entidades
+	@Test
+	void entidades() {
+		Usuario user = new Usuario();
+		user.setId(7);
+		user.setNombre("efwwg4");
+		user.setPassword("983rn2");
+		user.setPedidos(null);
+		Articulo articulo = new Articulo();
+		articulo.setId(10);
+		articulo.setNombre("TV");
+		articulo.setPrecio(34.3);
+		articulo.setStock(3);
+		articulo.setPertenecen(null);
+		Pedido pedido = new Pedido();
+		pedido.setId(8);
+		pedido.setNombre("jrwiojt");
+		pedido.setUsuario(user);
+		pedido.setPertenecen(null);
+		pedido.setFecha(null);
+		Pertenece pertenece = new Pertenece();
+		pertenece.setPedido(pedido);
+		pertenece.setArticulo(articulo);
+		pertenece.setCantidad(3);
+	}
+	
+	
+	
 	//Prueba de servicios
 	
+	@Test
+	void servicioArticulo() {
+		ArticuloDto dto=new ArticuloDto();
+		dto.setNombre("ARTICULO TEST");
+		dto.setPrecio(20.0);
+		dto.setStock(3);
+		
+		serviceArticulo.save(dto);
+	}
+
+	@Test
+	void servicioPedido() {
+		
+		PedidoDto dto=new PedidoDto();
+		dto.setId(2);
+		dto.setFecha(new Date());
+		dto.setNombre("Headphones");
+		
+		
+		servicePedido.save(dto, 2);
+		
+		Assertions.assertThat(servicePedido.find(2));
+		Assertions.assertThat(servicePedido.findByNombre("h"));
+		//servicePedido.delete(2);
+		
+		
+	}
 	
-	
-	
-	
-	
-	
+	@Test
+	void servicioUsuario() {
+		UsuarioDto dto = new UsuarioDto();
+		dto.setId(1);
+		dto.setNombre("geyug");
+		dto.setPassword("83nf");
+		Assertions.assertThat(serviceUsuario.find(1));
+	}	
 	
 	//Prueba de controladores
 	@Test

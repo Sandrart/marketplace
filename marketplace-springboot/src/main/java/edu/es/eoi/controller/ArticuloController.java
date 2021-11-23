@@ -17,14 +17,14 @@ import edu.es.eoi.dto.ArticuloDto;
 import edu.es.eoi.service.ArticuloServiceImpl;
 
 @RestController
-@RequestMapping(value = "/articulo")
+@RequestMapping(value = "marketplace/articulo")
 public class ArticuloController {
 
 	@Autowired
 	ArticuloServiceImpl serviceArticulo;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ArticuloDto> getOne(@PathVariable Integer id) {
+	public ResponseEntity<ArticuloDto> getOne(@PathVariable int id) {
 
 		return new ResponseEntity<ArticuloDto>(serviceArticulo.find(id), HttpStatus.OK);
 
@@ -40,9 +40,9 @@ public class ArticuloController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateOne(@RequestBody ArticuloDto dto, @PathVariable Integer id) {
+	public ResponseEntity<String> updateOne(@RequestBody ArticuloDto dto, @PathVariable int id) {
 
-		if (id.equals(dto.getId()) && serviceArticulo.find(id) != null) {
+		if (id == dto.getId() && serviceArticulo.find(id) != null) {
 
 			serviceArticulo.save(dto);
 

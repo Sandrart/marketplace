@@ -20,7 +20,7 @@ import edu.es.eoi.dto.PedidoDto;
 import edu.es.eoi.service.PedidoServiceImpl;
 
 @RestController
-@RequestMapping(value = "/pedido")
+@RequestMapping(value = "marketplace/pedido")
 public class PedidoController {
 	
 	@Autowired
@@ -36,9 +36,9 @@ public class PedidoController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateOne(@RequestBody PedidoDto dto, @PathVariable Integer id, @RequestParam int userId) {
+	public ResponseEntity<String> updateOne(@RequestBody PedidoDto dto, @PathVariable int id, @RequestParam int userId) {
 		
-		if(id.equals(dto.getId())&&servicePedido.find(id)!=null) {
+		if(id == dto.getId()&&servicePedido.find(id)!=null) {
 			
 			servicePedido.save(dto, userId);
 			
@@ -53,7 +53,7 @@ public class PedidoController {
 	}
 	
 	@GetMapping("/{id}")	
-	public ResponseEntity<PedidoDto> getOne(@PathVariable Integer id) {
+	public ResponseEntity<PedidoDto> getOne(@PathVariable int id) {
 		PedidoDto dto = null;
 		try {
 			dto = servicePedido.find(id);
@@ -74,7 +74,7 @@ public class PedidoController {
 	}
 	
 	@DeleteMapping("/{id}")	
-	public ResponseEntity<String> deleteOne(@PathVariable Integer id) {
+	public ResponseEntity<String> deleteOne(@PathVariable int id) {
 
 		servicePedido.delete(id);
 		

@@ -34,21 +34,22 @@ public class PedidoServiceImpl {
 		Pedido pedido = new Pedido();
 		pedido.setNombre(dto.getNombre());
 		pedido.setFecha(dto.getFecha());
-		
-		Usuario usuario = new Usuario();
-		usuario.setId(userId);
-		usuario.setNombre(repoUsuario.findById(userId).get().getNombre());
-		usuario.setPassword(repoUsuario.findById(userId).get().getPassword());
-		
-		pedido.setUsuario(usuario);
-		usuario.getPedidos().add(pedido);
-		
+
+		findUsuario(userId, pedido);
+
 		List<Pertenece> lista = mapeoPedidoArticulosDto(dto, pedido);
-		
+
 		pedido.setPertenecen(lista);
-		
+
 		repoPedido.save(pedido);
 
+	}
+
+	private void findUsuario(int userId, Pedido pedido) {
+		Usuario user = repoUsuario.findById(userId).get();
+		pedido.setUsuario(user);
+		user.getPedidos().add(pedido);
+		
 	}
 
 	private List<Pertenece> mapeoPedidoArticulosDto(PedidoDto dto, Pedido pedido) {
@@ -77,13 +78,15 @@ public class PedidoServiceImpl {
 	}
 	
 
-	public void delete(Integer id) {
+	public void delete(int id) {
 
+		Pedido p = repoPedido.findById(id).get(); 
+		p.getUsuario().getPedidos().remove(p);
 		repoPedido.deleteById(id);
 
 	}
 
-	public PedidoDto find(Integer id) throws NoSuchElementException {		
+	public PedidoDto find(int id) throws NoSuchElementException {		
 		
 		Pedido pedido = repoPedido.findById(id).get();
 
@@ -120,6 +123,7 @@ public class PedidoServiceImpl {
 			PedidoDto dto = new PedidoDto();
 			dto.setNombre(pedido.getNombre());
 			dto.setFecha(pedido.getFecha());
+			dto.setId(pedido.getId());
 			
 			for (Pertenece temp : pedido.getPertenecen()) {
 				

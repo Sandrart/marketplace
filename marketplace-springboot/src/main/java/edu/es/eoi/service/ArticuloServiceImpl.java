@@ -27,15 +27,17 @@ public class ArticuloServiceImpl {
 		
 	}
 	
-	// Si no funciona coger los parametros a mano
 	public ArticuloDto find(int id) {
 
 		Articulo articulo = repoArticulo.findById(id).get();
 
-		ArticuloDto dto = new ArticuloDto();
-
-		BeanUtils.copyProperties(articulo, dto);
-
+		ArticuloDto dto = new ArticuloDto();		
+		
+		dto.setId(articulo.getId());
+		dto.setNombre(articulo.getNombre());
+		dto.setPrecio(articulo.getPrecio());
+		dto.setStock(articulo.getStock());
+		
 		return dto;
 	}
 	

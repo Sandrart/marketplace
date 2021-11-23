@@ -17,7 +17,7 @@ public class ArticuloDto {
 	
 	private String nombre;
 	
-	private Double precio;
+	private double precio;
 	
-	private Integer stock;
+	private int stock;
 }
