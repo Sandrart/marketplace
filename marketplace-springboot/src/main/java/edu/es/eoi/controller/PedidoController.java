@@ -18,7 +18,7 @@ import edu.es.eoi.dto.PedidoDto;
 import edu.es.eoi.service.PedidoService;
 
 @RestController
-@RequestMapping(value = "/pedido")
+@RequestMapping(value = "/marketplace/pedido")
 public class PedidoController {
 
 	@Autowired
@@ -47,9 +47,9 @@ public class PedidoController {
 	@PutMapping("/{id}")
 	public ResponseEntity<String> update(@RequestBody PedidoDto dto, @PathVariable Integer id){
 		
-		if(id.equals(dto.getId()) && service.find(id) != null) {
+		if(id.equals(dto.getId())) {
 			
-			service.save(dto);
+			service.update(dto);
 			
 			return new ResponseEntity<String>(HttpStatus.ACCEPTED);			
 		} else {

@@ -17,7 +17,7 @@ import edu.es.eoi.dto.ArticuloDto;
 import edu.es.eoi.service.ArticuloService;
 
 @RestController
-@RequestMapping(value = "/articulo")
+@RequestMapping(value = "/marketplace/articulo")
 public class ArticuloController {
 
 	@Autowired
