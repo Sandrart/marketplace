@@ -1,5 +1,7 @@
 package edu.es.eoi.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,37 +22,41 @@ public class ArticuloController {
 
 	@Autowired
 	ArticuloServiceImpl service;
-	
+
 	@GetMapping("/articulo/{id}")
 	public ResponseEntity<ArticuloDto> getOne(@PathVariable Integer id) {
-		
+
 		return new ResponseEntity<ArticuloDto>(service.find(id), HttpStatus.OK);
-		
+
 	}
-	
-	@PostMapping
+
+	@PostMapping("/articulo")
 	public ResponseEntity<String> createOne(@RequestBody ArticuloDto dto) {
-		
+
 		service.save(dto);
-		
+
 		return new ResponseEntity<String>(HttpStatus.CREATED);
-		
+
 	}
-	
+
 	@PutMapping("/{id}")
 	public ResponseEntity<Integer> updateOne(@RequestBody ArticuloDto dto, @PathVariable Integer id) {
-		
-		if(id.equals(dto.getId())&&service.find(id)!=null) {
-		
-		service.save(dto);
-		
-		return new ResponseEntity<Integer>(HttpStatus.ACCEPTED);
-		
+
+		if (id.equals(dto.getId()) && service.find(id) != null) {
+
+			service.save(dto);
+
+			return new ResponseEntity<Integer>(HttpStatus.ACCEPTED);
+
 		} else {
-			
+
 			return new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
-	
+
+	@GetMapping("/articulo/nombre/{nombreParcial}")
+	public ResponseEntity<List<ArticuloDto>> nombreContenido(@PathVariable String nombreParcial) {
+		return new ResponseEntity<List<ArticuloDto>>(service.nombreParcial(nombreParcial), HttpStatus.ACCEPTED);
+	}
+
 }

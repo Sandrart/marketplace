@@ -2,6 +2,7 @@ package edu.es.eoi.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,9 +27,9 @@ public class Pedido_Articulo {
 	@Column(name = "CANTIDAD")
 	private String cantidad;
 	
-	@OneToMany(targetEntity = Pedido.class)
+	@OneToMany(targetEntity = Pedido.class, cascade = CascadeType.ALL)
 	private List<Pedido> pedidos;
 
-	@OneToMany(targetEntity = Articulo.class)
+	@OneToMany(targetEntity = Articulo.class, cascade = CascadeType.ALL)
 	private List<Articulo> articulos;
 }

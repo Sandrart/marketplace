@@ -53,7 +53,13 @@ public class UsuarioServiceImpl {
 
 	public boolean comprobarLogin(UsuarioDto dto) {
 
-		return false;
+		List<Usuario> result = repo.findByNombreAndPassword(dto.getNombre(), dto.getPassword());
+		
+		if(result!=null&&result.size()>0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 }

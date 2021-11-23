@@ -1,5 +1,8 @@
 package edu.es.eoi.controller;
 
+import java.util.List;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +61,11 @@ public class PedidoController {
 
 		return new ResponseEntity<Integer>(HttpStatus.ACCEPTED);
 
+	}
+
+	@GetMapping("/pedido/nombre/{nombreparcial}")
+	public ResponseEntity<List<PedidoDto>> nombreContenido(@PathVariable String nombreParcial) {
+		return new ResponseEntity<List<PedidoDto>>(service.nombreParcial(nombreParcial), HttpStatus.ACCEPTED);
 	}
 
 }

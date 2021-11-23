@@ -2,6 +2,7 @@ package edu.es.eoi.entity;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,9 +30,9 @@ public class Pedido {
 	@Column(name = "NOMBRE")
 	private String nombre;
 	
-	@ManyToOne(targetEntity = Usuario.class)
+	@ManyToOne(targetEntity = Usuario.class, cascade = CascadeType.ALL)
 	private Usuario usuario;
 	
-	@ManyToOne(targetEntity = Pedido_Articulo.class)
+	@ManyToOne(targetEntity = Pedido_Articulo.class, cascade = CascadeType.ALL)
 	private Pedido_Articulo pedidoArticulos;
 }

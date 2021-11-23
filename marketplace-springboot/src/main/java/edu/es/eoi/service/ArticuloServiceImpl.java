@@ -27,21 +27,7 @@ public class ArticuloServiceImpl {
 		
 		return dto;
 	}
-	
-	public List<ArticuloDto> findAll(){
-		
-		List<Articulo> articulos = repo.findAll();
-		List<ArticuloDto> lista = new ArrayList<ArticuloDto>();
-		
-		for (Articulo articulo : articulos) {
-			ArticuloDto dto = new ArticuloDto();
-			BeanUtils.copyProperties(articulo, dto);
-			
-			lista.add(dto);
-		}
-		
-		return lista;
-	}
+
 	
 	public void save(ArticuloDto dto) {
 		
@@ -51,14 +37,22 @@ public class ArticuloServiceImpl {
 		repo.save(entity);
 	}
 	
-	public void delete(Integer id) {
-		
-		repo.deleteById(id);
+	public List<ArticuloDto> nombreParcial(String nombre) {
+
+		List<Articulo> articulos = repo.findByNombreParcial(nombre);
+
+		List<ArticuloDto> lista = new ArrayList<ArticuloDto>();
+		for (Articulo articulo : articulos) {
+
+			ArticuloDto dto = new ArticuloDto();
+			dto.setNombre(articulo.getNombre());
+			dto.setPrecio(articulo.getPrecio());
+			dto.setStock(articulo.getStock());
+			lista.add(dto);	
+
+		}
+		return lista;
+
+
 	}
-	
-	public void deleteAll() {
-		
-		repo.deleteAll();
-	}
-	
 }

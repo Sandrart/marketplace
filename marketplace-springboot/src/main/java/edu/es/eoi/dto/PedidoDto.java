@@ -3,7 +3,6 @@ package edu.es.eoi.dto;
 import java.sql.Date;
 import java.util.List;
 
-import edu.es.eoi.entity.Pedido_Articulo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,5 +16,5 @@ public class PedidoDto {
 	
 	private Date fecha;
 	
-	private List<Pedido_Articulo> pedidoArticulos;
+	private List<Pedido_ArticuloDto> pedidoArticulos;
 }

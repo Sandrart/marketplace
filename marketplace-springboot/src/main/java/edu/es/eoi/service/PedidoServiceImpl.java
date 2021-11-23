@@ -27,21 +27,7 @@ public class PedidoServiceImpl {
 		
 		return dto;
 	}
-	
-	public List<PedidoDto> findAll(){
 		
-		List<Pedido> pedidos = repo.findAll();
-		List<PedidoDto> lista = new ArrayList<PedidoDto>();
-		
-		for (Pedido pedido : pedidos) {
-			PedidoDto dto = new PedidoDto();
-			BeanUtils.copyProperties(pedido, dto);
-			
-			lista.add(dto);
-		}
-		
-		return lista;
-	}
 	
 	public void save(PedidoDto dto) {
 		
@@ -56,8 +42,20 @@ public class PedidoServiceImpl {
 		repo.deleteById(id);
 	}
 	
-	public void deleteAll() {
-		
-		repo.deleteAll();
+	public List<PedidoDto> nombreParcial(String nombre) {
+
+		List<Pedido> pedidos = repo.findByNombreParcial(nombre);
+
+		List<PedidoDto> lista = new ArrayList<PedidoDto>();
+		for (Pedido pedido : pedidos) {
+
+			PedidoDto dto = new PedidoDto();
+			dto.setNombre(pedido.getNombre());
+			dto.setFecha(pedido.getFecha());
+			lista.add(dto);
+
+		}
+		return lista;
+
 	}
 }

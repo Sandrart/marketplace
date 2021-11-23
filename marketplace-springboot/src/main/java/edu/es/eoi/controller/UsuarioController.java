@@ -54,6 +54,12 @@ public class UsuarioController {
 		}
 	}
 	
+	@PostMapping("/usuario/login")
+	public ResponseEntity<Boolean> comprobarLogin(@RequestBody UsuarioDto usuariodto){
+		
+		return new ResponseEntity<Boolean> (service.comprobarLogin(usuariodto), HttpStatus.OK);
+	}
+	
 	
 	
 }
