@@ -1,7 +1,5 @@
 package edu.es.eoi.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,47 +11,44 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import edu.es.eoi.dto.UsuarioDto;
-import edu.es.eoi.service.UsuarioServiceImpl;
+import edu.es.eoi.dto.ArticuloDto;
+import edu.es.eoi.service.ArticuloServiceImpl;
 
 @Controller
-@RequestMapping(value = "/usuario")
-public class UsuarioController {
+@RequestMapping(value = "/articulo")
+public class ArticuloController {
 	
 	@Autowired
-	UsuarioServiceImpl service;
-	//FALTA COMPROBAR LOGIN USUARIO
+	ArticuloServiceImpl service;
 	
-	//Obtener los usuarios
-	@GetMapping
-	public ResponseEntity<List<UsuarioDto>> getAll(){
-		
-		return new ResponseEntity<List<UsuarioDto>>(service.findAll(), HttpStatus.OK);
-	}
-	
-	//Crear un usuario
 	@PostMapping
-	public ResponseEntity<String> createOne(@RequestBody UsuarioDto dto){
+	public ResponseEntity<String> createOne(@RequestBody ArticuloDto dto){
 		
 		service.save(dto);
 		
 		return new ResponseEntity<String>(HttpStatus.CREATED);
 	}
 	
-	//Actualizar usuario
-	@SuppressWarnings("unlikely-arg-type")
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateOne(@RequestBody UsuarioDto dto, @PathVariable Integer id){
+	public ResponseEntity<String> updateOne(@RequestBody ArticuloDto dto, @PathVariable Integer id){
 		
-		if(id.equals(dto.getId())&&service.findById(id)!=null) {
+		if(id.equals(dto.getId())&&service.find(id)!=null) {
 			
 			service.save(dto);
-			
 			return new ResponseEntity<String>(HttpStatus.ACCEPTED);
 		}else {
+			
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 		
 	}
-
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<ArticuloDto> getOne(@PathVariable Integer id){
+		
+		return new ResponseEntity<ArticuloDto>(service.find(id), HttpStatus.OK);
+	}
+	
+	//Obtener todos los articulos que contengan en su atributo nombre, nombre parcial
+	
 }

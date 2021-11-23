@@ -34,6 +34,7 @@ public class Pedido {
 	@Column
 	private String nombre;
 	
+	
 	@ManyToOne(targetEntity = Usuario.class,fetch=FetchType.LAZY)	
 	private Usuario usuario;
 	
