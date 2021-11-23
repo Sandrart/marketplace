@@ -7,7 +7,5 @@ import edu.es.eoi.marketplacespringboot.entity.PedidosArticulos;
 
 @Repository
 public interface PedidosArticulosRepository extends JpaRepository<PedidosArticulos, Integer>{
-	
 //	public List<PedidosArticulos> findByIdPedido(Integer id);
-	
 }

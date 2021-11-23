@@ -31,6 +31,6 @@ public class Usuario {
 	private String nombre;	
 	@Column
 	private String password;		
-	@OneToMany(targetEntity = Pedido.class,cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = Pedido.class,cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Pedido> pedidos;
 }

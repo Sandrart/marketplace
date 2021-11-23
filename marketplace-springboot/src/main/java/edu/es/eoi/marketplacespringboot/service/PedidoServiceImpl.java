@@ -26,9 +26,6 @@ public class PedidoServiceImpl {
 	PedidoRepository repoPedido;
 
 	@Autowired
-	PedidosArticulosRepository repoPedidosArticulos;
-
-	@Autowired
 	ArticuloRepository articuloRepository;
 
 	@Autowired
@@ -50,6 +47,20 @@ public class PedidoServiceImpl {
 		}
 
 	}
+	
+	public void actualizar(PedidoDto dto, int usuario) {
+		Pedido p = repoPedido.findById(dto.getId()).get();
+		p.setId(dto.getId());
+		p.setFecha(dto.getFecha());
+		p.setNombre(dto.getNombre());
+		
+//		List<PedidosArticulos> lista = mapeoPedidoArticulosDto(dto, p);
+//
+//		p.setPedidosArticulos(lista);
+		
+		repoPedido.save(p);
+	}
+	
 	
 	private List<PedidosArticulos> mapeoPedidoArticulosDto(PedidoDto dto, Pedido pedido) {
 		List<PedidoArticulosDto> articulos = dto.getArticulos();
@@ -83,8 +94,9 @@ public class PedidoServiceImpl {
 	}
 
 	public void delete(Integer id) {
+		Pedido p = repoPedido.findById(id).get();
+		p.getUsuario().getPedidos().remove(p);
 		repoPedido.deleteById(id);
-
 	}
 
 	public PedidoDto find(Integer id) throws NoSuchElementException {

@@ -38,7 +38,7 @@ public class PedidoController {
 	public ResponseEntity<String> updateOne(@RequestBody PedidoDto dto, @PathVariable Integer idPedido, @RequestParam Integer idUser) {
 		if(idPedido.equals(dto.getId())&&servicePedido.find(idPedido)!=null) {
 			
-			servicePedido.save(dto,idUser);
+			servicePedido.actualizar(dto,idUser);
 			
 			return new ResponseEntity<String>(HttpStatus.ACCEPTED);
 			
