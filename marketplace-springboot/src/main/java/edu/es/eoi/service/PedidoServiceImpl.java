@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.es.eoi.dto.ArticuloDto;
+import edu.es.eoi.dto.PedidoArticuloDto;
 import edu.es.eoi.dto.PedidoDto;
+import edu.es.eoi.entity.Articulo;
 import edu.es.eoi.entity.Pedido;
 import edu.es.eoi.entity.PedidoArticulo;
+import edu.es.eoi.repository.ArticuloRepository;
 import edu.es.eoi.repository.PedidoRepository;
 
 @Service
@@ -18,6 +21,8 @@ public class PedidoServiceImpl {
 
 	@Autowired
 	PedidoRepository repo;
+	@Autowired
+	ArticuloRepository articuloRepository;
 
 	public PedidoDto findById(Integer id) {
 
@@ -37,7 +42,15 @@ public class PedidoServiceImpl {
 	public void save(PedidoDto dto) {
 
 		Pedido entidad = new Pedido();
-		BeanUtils.copyProperties(dto, entidad);
+		entidad.setFecha(dto.getFecha());
+		entidad.setNombre(dto.getNombre());
+	
+		for (PedidoArticuloDto articulo : dto.getArticulos()) {
+			
+			Articulo a=articuloRepository.findById(articulo.getId()).get();			
+			a.getPedidos().add(entidad);			
+			entidad.getArticulos().add(a);			
+		}
 
 		repo.save(entidad);
 	}

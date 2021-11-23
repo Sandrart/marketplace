@@ -10,8 +10,6 @@ public class PedidoArticuloDto {
 	private int id;
 	
 	private int cantidad;
-	
-	private String idUsuario;
-	
-	private String idArticulo;
+
+
 }
