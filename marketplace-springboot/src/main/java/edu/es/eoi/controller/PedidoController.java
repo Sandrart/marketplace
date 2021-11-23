@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.es.eoi.dto.PedidoDto;
@@ -26,20 +27,20 @@ public class PedidoController {
 	PedidoServiceImpl servicePedido;
 	
 	@PostMapping
-	public ResponseEntity<String> createOne(@RequestBody PedidoDto dto) {
+	public ResponseEntity<String> createOne(@RequestBody PedidoDto dto, @RequestParam int userId) {
 		
-		servicePedido.save(dto);
+		servicePedido.save(dto, userId);
 		
 		return new ResponseEntity<String>(HttpStatus.CREATED);
 		
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateOne(@RequestBody PedidoDto dto, @PathVariable Integer id) {
+	public ResponseEntity<String> updateOne(@RequestBody PedidoDto dto, @PathVariable Integer id, @RequestParam int userId) {
 		
 		if(id.equals(dto.getId())&&servicePedido.find(id)!=null) {
 			
-			servicePedido.save(dto);
+			servicePedido.save(dto, userId);
 			
 			return new ResponseEntity<String>(HttpStatus.ACCEPTED);
 			

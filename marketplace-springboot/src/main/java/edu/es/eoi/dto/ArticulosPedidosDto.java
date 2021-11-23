@@ -1,7 +1,5 @@
 package edu.es.eoi.dto;
 
-import java.util.Date;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,14 +12,9 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PedidoDto {
-
+public class ArticulosPedidosDto {
+	
 	private int id;
-	
-	private String nombre;
-	
-	private Date fecha;
-	
-	private List<ArticulosPedidosDto> articulos;
+	private int cantidad;
 	
 }
