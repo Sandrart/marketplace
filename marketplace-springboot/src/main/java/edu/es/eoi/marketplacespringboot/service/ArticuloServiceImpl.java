@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.es.eoi.marketplacespringboot.dto.ArticuloDto;
+import edu.es.eoi.marketplacespringboot.dto.UsuarioDto;
 import edu.es.eoi.marketplacespringboot.entity.Articulo;
+import edu.es.eoi.marketplacespringboot.entity.Usuario;
 import edu.es.eoi.marketplacespringboot.repository.ArticuloRepository;
 
 @Service
@@ -16,7 +18,14 @@ public class ArticuloServiceImpl {
 	@Autowired
 	ArticuloRepository repoArticulo;
 	
-
+	
+	public ArticuloDto articuloDto(Articulo articulo) {
+		ArticuloDto dto = new ArticuloDto();
+		BeanUtils.copyProperties(articulo, dto);
+		return dto;
+		
+	}
+	
 	public void save(ArticuloDto dto) {
 		Articulo entity = new Articulo();
 		BeanUtils.copyProperties(dto, entity);
