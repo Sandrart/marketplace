@@ -13,11 +13,7 @@ public class PedidoDto {
 	private int id;
 	private String nombre;
 	private String fecha;
-	private PedidoArticuloDto articuloDto;
 	private List<ArticuloDto> articulos;
 	
-	public void setArticulo(String nombre2) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

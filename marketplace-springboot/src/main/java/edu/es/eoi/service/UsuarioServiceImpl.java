@@ -29,13 +29,14 @@ public class UsuarioServiceImpl {
 	
 	public List<UsuarioDto> findAll(){
 		
-		List<Usuario> usuarios = repo.findAll();
+		
 		List<UsuarioDto> lista = new ArrayList<UsuarioDto>();
 		
-		for(Usuario usuario : usuarios) {
+		for(Usuario usuario : repo.findAll()) {
 			
 			UsuarioDto dto = new UsuarioDto();
-			BeanUtils.copyProperties(usuarios, dto);
+			BeanUtils.copyProperties(usuario, dto);
+			
 			
 			lista.add(dto);
 		}
