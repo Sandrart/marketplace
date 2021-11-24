@@ -8,7 +8,10 @@ import lombok.Setter;
 public class ArticuloDto {
 
 	private int id;
+	
 	private String nombre;
-	private double precio;
-	private int stock;
+	
+	private Double precio;
+	
+	private Integer stock;
 }

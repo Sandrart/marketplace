@@ -1,13 +1,13 @@
 package edu.es.eoi.entity;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,16 +21,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Usuario {
+public class PedidoArticulos {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private String nombre;
+	@Column(nullable = false)
+	private Integer cantidad;
 	
-	private String password;
+	@ManyToOne(targetEntity = Articulo.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Articulo articulo;
 	
-	@OneToMany(targetEntity = Pedido.class, cascade = CascadeType.ALL)
-	private List<Pedido> pedidos;
+	@ManyToOne(targetEntity = Pedido.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Pedido pedido;
 }

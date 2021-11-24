@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import edu.es.eoi.entity.Usuario;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-		List<Usuario> findByNombreAndPassword(String nombre, String password);
-	
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
+
+	public List<Usuario> findByNombreAndPassword(String nombre, String password);
 }

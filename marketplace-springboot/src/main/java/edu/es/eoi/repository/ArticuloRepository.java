@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import edu.es.eoi.entity.Articulo;
 
 @Repository
-public interface ArticuloRepository extends JpaRepository<Articulo, Integer> {
+public interface ArticuloRepository extends JpaRepository<Articulo, Integer>{
 
-	public List<Articulo> findByNombreContaining(String nombreparcial);
+	public List<Articulo> findByNombreContaining(String str);
 }

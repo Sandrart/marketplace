@@ -1,39 +1,38 @@
 package edu.es.eoi.entity;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
-import edu.es.eoi.dto.ArticuloDto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Articulo {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column
 	private String nombre;
 	
-	@Column
 	private Double precio;
 	
-	@Column
-	private int stock;
+	private Integer stock;
 	
-	@ManyToMany(targetEntity=Pedido.class,cascade=CascadeType.ALL)
-	private Set<Pedido> pedidos;
-
-	
-}	
+	@OneToMany(targetEntity = PedidoArticulos.class, cascade = CascadeType.ALL)
+	private List<PedidoArticulos> pedidoArticulos;
+}

@@ -1,5 +1,6 @@
 package edu.es.eoi.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,31 +13,30 @@ import edu.es.eoi.entity.Usuario;
 import edu.es.eoi.repository.UsuarioRepository;
 
 @Service
-public class UsuarioServiceImpl {
-	
+public class UsuarioService {
+
 	@Autowired
 	UsuarioRepository repo;
 	
-	public UsuarioDto findById(Integer id) {
+	public UsuarioDto find(Integer id) {
 		
-		Usuario usu=repo.findById(id).get();
+		Usuario usuario = repo.findById(id).get();
+		UsuarioDto dto = new UsuarioDto();
 		
-		UsuarioDto dto=new UsuarioDto();
-		
+		BeanUtils.copyProperties(usuario, dto);
 		
 		return dto;
 	}
 	
-	public List<UsuarioDto> findAll(){
+	public List<UsuarioDto> findAll() {
 		
+		List<Usuario> usuarios = repo.findAll();
 		
 		List<UsuarioDto> lista = new ArrayList<UsuarioDto>();
 		
-		for(Usuario usuario : repo.findAll()) {
-			
+		for(Usuario usuario: usuarios) {
 			UsuarioDto dto = new UsuarioDto();
 			BeanUtils.copyProperties(usuario, dto);
-			
 			
 			lista.add(dto);
 		}
@@ -44,43 +44,22 @@ public class UsuarioServiceImpl {
 		return lista;
 	}
 	
-	public Usuario findEntity(Integer id) {
-		return repo.findById(id).get();
-	}
-	
 	public void save(UsuarioDto dto) {
 		
-		Usuario entidad = new Usuario();
-		BeanUtils.copyProperties(dto, entidad);
+		Usuario usuario = new Usuario();
+		BeanUtils.copyProperties(dto, usuario);
 		
-		repo.save(entidad);
-		
+		repo.save(usuario);
 	}
 	
-	public void delete(Integer id) {
+	public boolean checkUser(UsuarioDto dto) {
 		
-		repo.deleteById(id);
-	}
-	
-	public void DeleteAll() {
-		
-		repo.deleteAll();
-	}
-	
-	public UsuarioDto usuarioDto(Usuario usuario) {
-		UsuarioDto dto = new UsuarioDto();
-		BeanUtils.copyProperties(usuario, dto);
-		return dto;
-		
-	}
-	
-	public Boolean existUser(UsuarioDto dto) {	
 		List<Usuario> result = repo.findByNombreAndPassword(dto.getNombre(), dto.getPassword());
-		if(result != null && result.size() != 0) {
+		
+		if(result != null && result.size() > 0) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
-	
 }

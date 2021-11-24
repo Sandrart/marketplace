@@ -1,51 +1,45 @@
 package edu.es.eoi.entity;
 
+import java.sql.Date;
+import java.util.List;
 
-import java.util.Set;
-
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Pedido {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column
-	private String fecha;
+	@Column(nullable = false)
+	private Date fecha;
 	
-	@Column
+	@Column(nullable = false)
 	private String nombre;
 	
-	
-	@ManyToOne(targetEntity = Usuario.class,fetch=FetchType.LAZY)	
+	@ManyToOne(targetEntity = Usuario.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Usuario usuario;
 	
-	@ManyToMany
-	@JoinTable(name="pedidoarticulo", joinColumns = @JoinColumn(name="idPedido"),
-	inverseJoinColumns = @JoinColumn(name="idArticulo"))
-	private Set<Articulo> articulos;
-	
-	
-	
-	
-	
-	
+	@OneToMany(targetEntity = PedidoArticulos.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<PedidoArticulos> pedidoArticulos;
 }
