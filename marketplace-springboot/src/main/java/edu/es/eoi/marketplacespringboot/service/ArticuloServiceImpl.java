@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.es.eoi.marketplacespringboot.dto.ArticuloDto;
-import edu.es.eoi.marketplacespringboot.dto.UsuarioDto;
 import edu.es.eoi.marketplacespringboot.entity.Articulo;
-import edu.es.eoi.marketplacespringboot.entity.Usuario;
 import edu.es.eoi.marketplacespringboot.repository.ArticuloRepository;
 
 @Service

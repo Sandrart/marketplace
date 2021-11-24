@@ -17,7 +17,6 @@ import edu.es.eoi.marketplacespringboot.entity.PedidosArticulos;
 import edu.es.eoi.marketplacespringboot.entity.Usuario;
 import edu.es.eoi.marketplacespringboot.repository.ArticuloRepository;
 import edu.es.eoi.marketplacespringboot.repository.PedidoRepository;
-import edu.es.eoi.marketplacespringboot.repository.PedidosArticulosRepository;
 import edu.es.eoi.marketplacespringboot.repository.UsuarioRepository;
 
 @Service
@@ -36,9 +35,9 @@ public class PedidoServiceImpl {
 			Pedido pedido = new Pedido();
 			pedido.setNombre(dto.getNombre());
 			pedido.setFecha(dto.getFecha());
-
+			
 			findUsuario(usuario, pedido);
-
+			
 			List<PedidosArticulos> lista = mapeoPedidoArticulosDto(dto, pedido);
 
 			pedido.setPedidosArticulos(lista);
@@ -53,6 +52,7 @@ public class PedidoServiceImpl {
 		p.setId(dto.getId());
 		p.setFecha(dto.getFecha());
 		p.setNombre(dto.getNombre());
+	
 		
 //		List<PedidosArticulos> lista = mapeoPedidoArticulosDto(dto, p);
 //
@@ -128,6 +128,7 @@ public class PedidoServiceImpl {
 	}
 
 	public List<PedidoDto> findByNombre(String nombre) {
+		
 		List<Pedido> pedidos = repoPedido.findByNombreContaining(nombre);
 
 		List<PedidoDto> lista = new ArrayList<PedidoDto>();
@@ -136,9 +137,10 @@ public class PedidoServiceImpl {
 			List<ArticuloDto> listaArticulos = new ArrayList<ArticuloDto>();
 
 			PedidoDto dto = new PedidoDto();
+			dto.setId(pedido.getId());
 			dto.setNombre(pedido.getNombre());
 			dto.setFecha(pedido.getFecha());
-
+			
 			for (PedidosArticulos temp : pedido.getPedidosArticulos()) {
 
 				ArticuloDto dtoTemp = new ArticuloDto();
@@ -148,7 +150,7 @@ public class PedidoServiceImpl {
 				listaArticulos.add(dtoTemp);
 			}
 
-			List<PedidoArticulosDto> articulos = new ArrayList<PedidoArticulosDto>();
+			List<PedidoArticulosDto> articulos = muestraCamposArticulo(pedido);
 
 			BeanUtils.copyProperties(listaArticulos, articulos);
 
